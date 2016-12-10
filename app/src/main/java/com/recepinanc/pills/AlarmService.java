@@ -28,7 +28,7 @@ public class AlarmService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toast.makeText(AlarmService.this, TAG + ":: Service is destroyedo.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AlarmService.this, TAG + ":: Service is destroyed.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

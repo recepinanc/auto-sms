@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -23,12 +22,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("Lock", "Unlocked");
         SmsManager smsManager = SmsManager.getDefault();
         // CHANGE ${number} to the number you'll send, ${message} to the message you want to send
         smsManager.sendTextMessage("number", null, "message", null, null);
         Toast.makeText(context, "Service is ready!", Toast.LENGTH_LONG).show();
-        Log.d("Lock", "Locked");
     }
 
     public void setAlarm(Context context) {
@@ -44,17 +41,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         // With setInexactRepeating(), you have to use one of the AlarmManager interval
         // constants--in this case, AlarmManager.INTERVAL__HALF_DAY.
         // Alarm will be fired each 12 hour. In this case, in 8 a.m. and p.m.
-
-//        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-//                AlarmManager.INTERVAL_HALF_DAY, alarmIntent);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
                 AlarmManager.INTERVAL_HALF_DAY, alarmIntent);
-    }
-
-    public void cancelAlarm(Context context) {
-        Intent intent = new Intent(context, AlarmReceiver.class);
-        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(sender);
     }
 }

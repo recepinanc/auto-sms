@@ -21,7 +21,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "Don't forget your pills!", Toast.LENGTH_LONG).show();
+        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+            Toast.makeText(context, "Don't forget your pills!", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void setAlarm(Context context) {

@@ -12,6 +12,8 @@ import android.widget.Toast;
 public class AlarmService extends Service {
 
     private static final String TAG = "ALARM_SERVICE";
+    private AlarmReceiver alarmReceiver = new AlarmReceiver();
+
 
     @Override
     public void onCreate() {
@@ -33,7 +35,8 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, TAG + "Service Started", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, TAG + ":: Service is started", Toast.LENGTH_LONG).show();
+        alarmReceiver.setAlarm(this);
         return START_STICKY;
     }
 }

@@ -5,6 +5,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -21,9 +23,11 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-            Toast.makeText(context, "Don't forget your pills!", Toast.LENGTH_LONG).show();
-        }
+        Log.d("Lock", "Unlocked");
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage("number", null, "message", null, null);
+        Toast.makeText(context, "Service is ready!", Toast.LENGTH_LONG).show();
+        Log.d("Lock", "Locked");
     }
 
     public void setAlarm(Context context) {
@@ -39,7 +43,10 @@ public class AlarmReceiver extends BroadcastReceiver {
         // With setInexactRepeating(), you have to use one of the AlarmManager interval
         // constants--in this case, AlarmManager.INTERVAL__HALF_DAY.
         // Alarm will be fired each 12 hour. In this case, in 8 a.m. and p.m.
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+
+//        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+//                AlarmManager.INTERVAL_HALF_DAY, alarmIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
                 AlarmManager.INTERVAL_HALF_DAY, alarmIntent);
     }
 

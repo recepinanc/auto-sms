@@ -25,6 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d("Lock", "Unlocked");
         SmsManager smsManager = SmsManager.getDefault();
+        // CHANGE ${number} to the number you'll send, ${message} to the message you want to send
         smsManager.sendTextMessage("number", null, "message", null, null);
         Toast.makeText(context, "Service is ready!", Toast.LENGTH_LONG).show();
         Log.d("Lock", "Locked");
